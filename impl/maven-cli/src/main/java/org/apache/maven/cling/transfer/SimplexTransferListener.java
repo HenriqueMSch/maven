@@ -73,7 +73,7 @@ public final class SimplexTransferListener extends AbstractTransferListener impl
             TransferListener delegate, int queueSize, int batchMaxSize, boolean blockOnLastEvent) {
         this.delegate = requireNonNull(delegate);
         if (queueSize < 1 || batchMaxSize < 1) {
-            throw new IllegalArgumentException("Queue and batch sizes must be greater than 1");
+            throw new IllegalArgumentException("Queue and batch sizes must be at least 1");
         }
         this.batchMaxSize = batchMaxSize;
         this.blockOnLastEvent = blockOnLastEvent;
