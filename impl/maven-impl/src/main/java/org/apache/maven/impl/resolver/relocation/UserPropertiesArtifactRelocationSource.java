@@ -158,8 +158,8 @@ public final class UserPropertiesArtifactRelocationSource implements MavenArtifa
         }
         String[] entries = relocationsEntries.split(",");
         try (Stream<String> lines = Arrays.stream(entries)) {
-            List<Relocation> relocationList = lines.filter(
-                            l -> l != null && !l.trim().isEmpty())
+            List<Relocation> relocationList = lines.map(String::trim)
+                    .filter(l -> !l.isEmpty())
                     .map(l -> {
                         boolean global;
                         String splitExpr;
@@ -176,10 +176,10 @@ public final class UserPropertiesArtifactRelocationSource implements MavenArtifa
                         if (parts.length < 1) {
                             throw new IllegalArgumentException("Unrecognized entry: " + l);
                         }
-                        Artifact s = parseArtifact(parts[0]);
+                        Artifact s = parseArtifact(parts[0].trim());
                         Artifact t;
                         if (parts.length > 1) {
-                            t = parseArtifact(parts[1]);
+                            t = parseArtifact(parts[1].trim());
                         } else {
                             t = SENTINEL;
                         }

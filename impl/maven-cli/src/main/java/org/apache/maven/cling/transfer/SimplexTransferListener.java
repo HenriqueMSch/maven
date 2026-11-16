@@ -101,7 +101,7 @@ public final class SimplexTransferListener extends AbstractTransferListener impl
         try {
             while (true) {
                 batch.clear();
-                if (eventQueue.drainTo(batch, BATCH_MAX_SIZE) == 0) {
+                if (eventQueue.drainTo(batch, batchMaxSize) == 0) {
                     batch.add(eventQueue.take());
                 }
                 demux(batch);
